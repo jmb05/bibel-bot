@@ -29,15 +29,15 @@ public class HelpCommand {
     
     public static void helpMessageReceived(GuildMessageReceivedEvent evt, String[] args){
         try{
-            if(args[1].equals("über")){
+            if(args[1].equals("" + '\u00FC' + "ber")){
                 SendTemplates.sendHilfeAbout(evt.getChannel());
             }else if(args[1].equals("kommandos")){
                 SendTemplates.sendHilfeKommandos(evt.getChannel());
             }
-        }catch(ArrayIndexOutOfBoundsException aioobe){
+        }catch(ArrayIndexOutOfBoundsException arrayIndexOutOfBoundsException){
             EmbedBuilder losung = new EmbedBuilder();
             losung.setTitle("Bibel Bot - Hilfe");
-            losung.addField("", "Das Kommando \'!hilfe\' macht alleine nichts ... hänge noch \'über\' oder \'kommandos\' hinten ran um die gewünschte Hilfestellung anzuzeigen! :wink:", false);
+            losung.addField("", "Das Kommando '!hilfe' macht alleine nichts ... h" + '\u00E4' + "nge noch '" + '\u00FC' + "ber' oder 'kommandos' hinten ran um die gew" + '\u00FC' + "nschte Hilfestellung anzuzeigen! :wink:", false);
             losung.setColor(Color.green);
 
             evt.getChannel().sendTyping().queue();

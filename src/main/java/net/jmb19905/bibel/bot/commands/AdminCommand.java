@@ -47,14 +47,14 @@ public class AdminCommand{
                             if (Util.setPrefix(evt.getGuild().getIdLong(), args[2])) {
                                 EmbedBuilder message = new EmbedBuilder();
                                 message.setTitle("Bibel Bot - Admin");
-                                message.addField("", "Präfix ist jetzt '" + args[2] + "'.", false);
+                                message.addField("", "Pr" + '\u00E4' + "fix ist jetzt '" + args[2] + "'.", false);
                                 message.setColor(Color.red);
                                 evt.getChannel().sendTyping().queue();
                                 evt.getChannel().sendMessage(message.build()).queue();
                             } else {
                                 EmbedBuilder message = new EmbedBuilder();
                                 message.setTitle("Bibel Bot - Admin");
-                                message.addField("", "Fehler beim ändern des Präfix.", false);
+                                message.addField("", "Fehler beim " + '\u00E4' + "ndern des Pr" + '\u00E4' + "fix.", false);
                                 message.setColor(Color.red);
                                 evt.getChannel().sendTyping().queue();
                                 evt.getChannel().sendMessage(message.build()).queue();
@@ -62,7 +62,7 @@ public class AdminCommand{
                         } catch (ArrayIndexOutOfBoundsException e) {
                             EmbedBuilder message = new EmbedBuilder();
                             message.setTitle("Bibel Bot - Admin");
-                            message.addField("", "Es muss noch der Präfix angegeben werden!", false);
+                            message.addField("", "Es muss noch der Pr" + '\u00E4' + "fix angegeben werden!", false);
                             message.setColor(Color.red);
                             evt.getChannel().sendTyping().queue();
                             evt.getChannel().sendMessage(message.build()).queue();
@@ -83,7 +83,7 @@ public class AdminCommand{
                             } else {
                                 EmbedBuilder message = new EmbedBuilder();
                                 message.setTitle("Bibel Bot - Admin");
-                                message.addField("", "Fehler beim ändern der Zeit.", false);
+                                message.addField("", "Fehler beim " + '\u00E4' + "ndern der Zeit.", false);
                                 message.setColor(Color.red);
                                 evt.getChannel().sendTyping().queue();
                                 evt.getChannel().sendMessage(message.build()).queue();
@@ -112,7 +112,7 @@ public class AdminCommand{
                             } else {
                                 EmbedBuilder message = new EmbedBuilder();
                                 message.setTitle("Bibel Bot - Admin");
-                                message.addField("", "Fehler beim ändern des Losungskanal.", false);
+                                message.addField("", "Fehler beim " + '\u00E4' + "ndern des Losungskanal.", false);
                                 message.setColor(Color.red);
                                 evt.getChannel().sendTyping().queue();
                                 evt.getChannel().sendMessage(message.build()).queue();
@@ -183,7 +183,7 @@ public class AdminCommand{
         }catch(ArrayIndexOutOfBoundsException ex){
             EmbedBuilder losung = new EmbedBuilder();
             losung.setTitle("Bibel Bot - Hilfe");
-            losung.addField("", "Das Kommando '!admin' macht alleine nichts ... hänge noch 'get-prefix', 'set-prefix [präfix]', 'get-time', 'set-time [hh:mm:ss]', 'get-channel-name' oder 'set-channel-name [channelname]' hinten ran um die gewünschte Einstellung anzuzeigen! :wink:", false);
+            losung.addField("", "Das Kommando '!admin' macht alleine nichts ... h" + '\u00E4' + "nge noch 'get-prefix', 'set-prefix [pr" + '\u00E4' + "fix]', 'get-time', 'set-time [hh:mm:ss]', 'get-channel-name' oder 'set-channel-name [channelname]' hinten ran um die gew" + '\u00FC' + "nschte Einstellung anzuzeigen! :wink:", false);
             losung.setColor(Color.green);
 
             evt.getChannel().sendTyping().queue();

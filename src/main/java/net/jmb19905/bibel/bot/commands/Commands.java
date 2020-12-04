@@ -16,6 +16,7 @@
  */
 package net.jmb19905.bibel.bot.commands;
 
+import java.nio.charset.StandardCharsets;
 import java.sql.SQLException;
 import java.util.Arrays;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
@@ -31,10 +32,9 @@ public class Commands extends ListenerAdapter{
     @Override
     public void onGuildMessageReceived(GuildMessageReceivedEvent evt){
         System.out.println("Message received: " + evt.getMessage().toString());
-        String[] args = evt.getMessage().getContentRaw().split("\\s+");
-        System.out.println(Arrays.toString(args));
+        String message = new String(evt.getMessage().getContentStripped().getBytes(StandardCharsets.UTF_8));
+        String[] args = message.split("\\s+");
         String prefix = Util.getPrefix(evt.getGuild().getIdLong());
-        System.out.println("Prefix is '"+prefix+"'");
         try{
             if(args[0].equals(prefix + "admin")){
                 System.out.println("Detected '!admin' command");
@@ -45,6 +45,9 @@ public class Commands extends ListenerAdapter{
             }else if(args[0].equals(prefix + "hilfe")){
                 System.out.println("Detected !'hilfe' command");
                 HelpCommand.helpMessageReceived(evt, args);
+            }else if(args[0].equals(prefix + "bibel")){
+                System.out.println("Detected !'bibel' command");
+                BibleCommand.verseMessageReceived(evt, args);
             }
         }catch(SQLException e){
             e.printStackTrace();

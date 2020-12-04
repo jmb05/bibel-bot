@@ -1,0 +1,66 @@
+01O gen 1. Mose (Genesis)
+02O ex 2. Mose (Exodus)
+03O lev 3. Mose (Levitikus)
+04O num 4. Mose (Numeri)
+05O dtn 5. Mose (Deuteronomium)
+06O jos Josua
+07O ri Richter
+08O rut Ruth
+09O 1sam 1. Samuel
+10O 2sam 2. Samuel
+11O 1kön 1. Könige
+12O 2kön 2. Könige
+13O 1chr 1. Chronik
+14O 2chr 2. Chronik
+15O esra Esra
+16O neh Nehemia
+17O est Esther
+18O hi Hiob
+19O ps Psalmen
+20O spr Sprüche
+21O koh Prediger Salomo
+22O hld Das Hohelied
+23O jes Jesaja
+24O jer Jeremia
+25O klgl Klagelieder
+26O hes Hesekiel
+27O dan Daniel
+28O hos Hosea
+29O joel Joel
+30O am Amos
+31O obd Obadja
+32O jona Jona
+33O mi Micha
+34O nah Nahum
+35O hab Habakuk
+36O zef Zefania
+37O hag Haggai
+38O sach Sacharja
+39O mal Maleachi
+40N mt Matthäus
+41N mk Markus
+42N lk Lukas
+43N joh Johannes
+44N apg Apostelgeschichte
+45N röm Römer
+46N 1kor 1. Korinther
+47N 2kor 2. Korinther
+48N gal Galater
+49N eph Epheser
+50N phil Philipper
+51N kol Kolosser
+52N 1thess 1. Thessalonicher
+53N 2thess 2. Thessalonicher
+54N 1tim 1. Timotheus
+55N 2tim 2. Timotheus
+56N tit Titus
+57N phlm Philemon
+58N hebr Hebräer
+59N jak Jakobus
+60N 1petr 1. Petrus
+61N 2petr 2. Petrus
+62N 1joh 1. Johannes
+63N 2joh 2. Johannes
+64N 3joh 3. Johannes
+65N jud Judas
+66N offb Offenbarung

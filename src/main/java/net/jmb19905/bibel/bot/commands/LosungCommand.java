@@ -35,10 +35,10 @@ public class LosungCommand extends ListenerAdapter{
             }else if(args[1].equals("jahr")){
                 SendTemplates.sendLosungJahr(evt.getChannel());
             }
-        }catch(ArrayIndexOutOfBoundsException aioobe){
+        }catch(ArrayIndexOutOfBoundsException arrayIndexOutOfBoundsException){
             EmbedBuilder losung = new EmbedBuilder();
             losung.setTitle("Bibel Bot - Hilfe");
-            losung.addField("", "Das Kommando '!losung' macht alleine nichts ... hänge noch 'heute' oder 'jahr' hinten ran um die gewünschte Losung anzuzeigen! :wink:", false);
+            losung.addField("", "Das Kommando '!losung' macht alleine nichts ... h" + '\u00E4' + "nge noch 'heute' oder 'jahr' hinten ran um die gew" + '\u00FC' + "nschte Losung anzuzeigen! :wink:", false);
             losung.setColor(Color.green);
 
             evt.getChannel().sendTyping().queue();

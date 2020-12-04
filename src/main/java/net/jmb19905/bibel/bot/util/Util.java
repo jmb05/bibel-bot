@@ -62,29 +62,31 @@ public class Util {
     public static String readFromConsole(String prefix) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         System.out.print(prefix);
-        String s = br.readLine();
-        return s;
+        return br.readLine();
     }
 
     //get methods
     public static String getPrefix(long guildId){
         System.out.println("Searching for prefix...");
-        try(Connection conn = SQLiteManager.connect(VariableManager.DATABASE_FILE); PreparedStatement prepStmt = conn.prepareStatement("SELECT prefix FROM guild_settings WHERE guild_id = ?")){
-            prepStmt.setString(1, String.valueOf(guildId));
+        try(Connection conn = SQLiteManager.connect(VariableManager.DATABASE_FILE)) {
+            assert conn != null;
+            try(PreparedStatement prepStmt = conn.prepareStatement("SELECT prefix FROM guild_settings WHERE guild_id = ?")){
+                prepStmt.setString(1, String.valueOf(guildId));
 
-            final ResultSet resultSet = prepStmt.executeQuery();
-            if(resultSet.next()){
-                String out = resultSet.getString("prefix");
-                System.out.println("Returning prefix");
-                System.out.println("Closing Database...");
-                return  out;
+                final ResultSet resultSet = prepStmt.executeQuery();
+                if(resultSet.next()){
+                    String out = resultSet.getString("prefix");
+                    System.out.println("Returning prefix");
+                    System.out.println("Closing Database...");
+                    return  out;
+                }
+                try(final PreparedStatement insertStmt = conn.prepareStatement("INSERT INTO guild_settings(guild_id) VALUES(?)")){
+                    insertStmt.setString(1, String.valueOf(guildId));
+                    insertStmt.execute();
+                }
             }
-            try(final PreparedStatement insertStmt = conn.prepareStatement("INSERT INTO guild_settings(guild_id) VALUES(?)")){
-                insertStmt.setString(1, String.valueOf(guildId));
-                insertStmt.execute();
-            }
-        }catch(SQLException e){
-            java.util.logging.Logger.getLogger(Util.class.getName()).log(Level.SEVERE, "", e);
+        } catch(SQLException e){
+            Logger.getLogger(Util.class.getName()).log(Level.SEVERE, "", e);
         }
         System.out.println("Closed Database");
         return VariableManager.DEFAULT_PREFIX;
@@ -93,17 +95,20 @@ public class Util {
     public static String getLosungenChannelName(long guildId){
         System.out.println("getLosungenChannelName");
         try{
-            try(Connection conn = SQLiteManager.connect(VariableManager.DATABASE_FILE); PreparedStatement prepStmt = conn.prepareStatement("SELECT losungen_channel_name FROM guild_settings WHERE guild_id = ?")){
-                prepStmt.setString(1, String.valueOf(guildId));
-                final ResultSet resultSet = prepStmt.executeQuery();
-                if(resultSet.next()){
-                    String out = resultSet.getString("losungen_channel_name");
-                    System.out.println("Closing Database...");
-                    return  out;
-                }
-                try(final PreparedStatement insertStmt = conn.prepareStatement("INSERT INTO guild_settings(guild_id) VALUES(?)")){
-                    insertStmt.setString(1, String.valueOf(guildId));
-                    insertStmt.execute();
+            try(Connection conn = SQLiteManager.connect(VariableManager.DATABASE_FILE)) {
+                assert conn != null;
+                try(PreparedStatement prepStmt = conn.prepareStatement("SELECT losungen_channel_name FROM guild_settings WHERE guild_id = ?")){
+                    prepStmt.setString(1, String.valueOf(guildId));
+                    final ResultSet resultSet = prepStmt.executeQuery();
+                    if(resultSet.next()){
+                        String out = resultSet.getString("losungen_channel_name");
+                        System.out.println("Closing Database...");
+                        return  out;
+                    }
+                    try(final PreparedStatement insertStmt = conn.prepareStatement("INSERT INTO guild_settings(guild_id) VALUES(?)")){
+                        insertStmt.setString(1, String.valueOf(guildId));
+                        insertStmt.execute();
+                    }
                 }
             }
         }catch(SQLException ex){
@@ -115,23 +120,26 @@ public class Util {
 
     public static Time getTime(long guildId){
         System.out.println("Searching for time...");
-        try(Connection conn = SQLiteManager.connect(VariableManager.DATABASE_FILE); PreparedStatement prepStmt = conn.prepareStatement("SELECT time FROM guild_settings WHERE guild_id = ?")){
-            prepStmt.setString(1, String.valueOf(guildId));
+        try(Connection conn = SQLiteManager.connect(VariableManager.DATABASE_FILE)) {
+            assert conn != null;
+            try(PreparedStatement prepStmt = conn.prepareStatement("SELECT time FROM guild_settings WHERE guild_id = ?")){
+                prepStmt.setString(1, String.valueOf(guildId));
 
 
 
-            final ResultSet resultSet = prepStmt.executeQuery();
-            if(resultSet.next()){
-                String[] parts = resultSet.getString("time").split(":");
-                System.out.println("Returning time...");
-                System.out.println("Closing Database...");
-                return  new Time(Integer.parseInt(parts[0]), Integer.parseInt(parts[1]), Integer.parseInt(parts[2]));
+                final ResultSet resultSet = prepStmt.executeQuery();
+                if(resultSet.next()){
+                    String[] parts = resultSet.getString("time").split(":");
+                    System.out.println("Returning time...");
+                    System.out.println("Closing Database...");
+                    return  new Time(Integer.parseInt(parts[0]), Integer.parseInt(parts[1]), Integer.parseInt(parts[2]));
+                }
+                try(final PreparedStatement insertStmt = conn.prepareStatement("INSERT INTO guild_settings(guild_id) VALUES(?)")){
+                    insertStmt.setString(1, String.valueOf(guildId));
+                    insertStmt.execute();
+                }
             }
-            try(final PreparedStatement insertStmt = conn.prepareStatement("INSERT INTO guild_settings(guild_id) VALUES(?)")){
-                insertStmt.setString(1, String.valueOf(guildId));
-                insertStmt.execute();
-            }
-        }catch(SQLException ex){
+        } catch(SQLException ex){
             java.util.logging.Logger.getLogger(Util.class.getName()).log(Level.SEVERE, "", ex);
         }
         System.out.println("Closed Database");
@@ -140,21 +148,24 @@ public class Util {
 
     public static boolean getIfShow(long guildId){
         System.out.println("getPIfShow");
-        try(Connection conn = SQLiteManager.connect(VariableManager.DATABASE_FILE); PreparedStatement prepStmt = conn.prepareStatement("SELECT showLosung FROM guild_settings WHERE guild_id = ?")) {
+        try(Connection conn = SQLiteManager.connect(VariableManager.DATABASE_FILE)) {
+            assert conn != null;
+            try(PreparedStatement prepStmt = conn.prepareStatement("SELECT showLosung FROM guild_settings WHERE guild_id = ?")) {
 
-            prepStmt.setString(1, String.valueOf(guildId));
+                prepStmt.setString(1, String.valueOf(guildId));
 
-            final ResultSet resultSet = prepStmt.executeQuery();
-            if(resultSet.next()){
-                int out = resultSet.getInt("showLosung");
-                System.out.println("Closing Database...");
-                return out != 0;
+                final ResultSet resultSet = prepStmt.executeQuery();
+                if(resultSet.next()){
+                    int out = resultSet.getInt("showLosung");
+                    System.out.println("Closing Database...");
+                    return out != 0;
+                }
+                try(final PreparedStatement insertStmt = conn.prepareStatement("INSERT INTO guild_settings(guild_id) VALUES(?)")){
+                    insertStmt.setString(1, String.valueOf(guildId));
+                    insertStmt.execute();
+                }
             }
-            try(final PreparedStatement insertStmt = conn.prepareStatement("INSERT INTO guild_settings(guild_id) VALUES(?)")){
-                insertStmt.setString(1, String.valueOf(guildId));
-                insertStmt.execute();
-            }
-        }catch(SQLException e){
+        } catch(SQLException e){
             java.util.logging.Logger.getLogger(Util.class.getName()).log(Level.SEVERE, "", e);
         }
         System.out.println("Closed Database");
@@ -166,11 +177,14 @@ public class Util {
     //set methods
     public static boolean setPrefix(long guildId, String newPrefix){
         System.out.println("setPrefix");
-        try(Connection conn = SQLiteManager.connect(VariableManager.DATABASE_FILE); PreparedStatement prepStmt = conn.prepareStatement("UPDATE guild_settings SET prefix = ? WHERE guild_id = ?")){
-            prepStmt.setString(1, newPrefix);
-            prepStmt.setString(2, String.valueOf(guildId));
-            prepStmt.execute();
-        }catch(SQLException e){
+        try(Connection conn = SQLiteManager.connect(VariableManager.DATABASE_FILE)) {
+            assert conn != null;
+            try(PreparedStatement prepStmt = conn.prepareStatement("UPDATE guild_settings SET prefix = ? WHERE guild_id = ?")){
+                prepStmt.setString(1, newPrefix);
+                prepStmt.setString(2, String.valueOf(guildId));
+                prepStmt.execute();
+            }
+        } catch(SQLException e){
             java.util.logging.Logger.getLogger(Util.class.getName()).log(Level.SEVERE, "", e);
             System.out.println("Closing Database... fail");
             return false;
@@ -181,11 +195,14 @@ public class Util {
 
     public static boolean setLosungenChannelName(long guildId, String newLosungenChannel){
         System.out.println("setLosungenChannelName");
-        try(Connection conn = SQLiteManager.connect(VariableManager.DATABASE_FILE); PreparedStatement prepStmt = conn.prepareStatement("UPDATE guild_settings SET losungen_channel_name = ? WHERE guild_id = ?")){
-            prepStmt.setString(1, newLosungenChannel);
-            prepStmt.setString(2, String.valueOf(guildId));
-            prepStmt.execute();
-        }catch(SQLException e){
+        try(Connection conn = SQLiteManager.connect(VariableManager.DATABASE_FILE)) {
+            assert conn != null;
+            try(PreparedStatement prepStmt = conn.prepareStatement("UPDATE guild_settings SET losungen_channel_name = ? WHERE guild_id = ?")){
+                prepStmt.setString(1, newLosungenChannel);
+                prepStmt.setString(2, String.valueOf(guildId));
+                prepStmt.execute();
+            }
+        } catch(SQLException e){
             java.util.logging.Logger.getLogger(Util.class.getName()).log(Level.SEVERE, "", e);
             System.out.println("Closing Database... fail");
             return false;
@@ -196,11 +213,14 @@ public class Util {
 
     public static boolean setTime(long guildId, Time newTime){
         System.out.println("setTime");
-        try(Connection conn = SQLiteManager.connect(VariableManager.DATABASE_FILE); PreparedStatement prepStmt = conn.prepareStatement("UPDATE guild_settings SET time = ? WHERE guild_id = ?")){
-            prepStmt.setString(1, newTime.getHour()+":"+newTime.getMinute()+":"+newTime.getSecond());
-            prepStmt.setString(2, String.valueOf(guildId));
-            prepStmt.execute();
-        }catch(SQLException e){
+        try(Connection conn = SQLiteManager.connect(VariableManager.DATABASE_FILE)) {
+            assert conn != null;
+            try(PreparedStatement prepStmt = conn.prepareStatement("UPDATE guild_settings SET time = ? WHERE guild_id = ?")){
+                prepStmt.setString(1, newTime.getHour()+":"+newTime.getMinute()+":"+newTime.getSecond());
+                prepStmt.setString(2, String.valueOf(guildId));
+                prepStmt.execute();
+            }
+        } catch(SQLException e){
             java.util.logging.Logger.getLogger(Util.class.getName()).log(Level.SEVERE, "", e);
             System.out.println("Closing Database... fail");
             return false;
@@ -213,15 +233,18 @@ public class Util {
 
     public static boolean setIfShow(long guildId, boolean show){
         System.out.println("setIfShow");
-        try(Connection conn = SQLiteManager.connect(VariableManager.DATABASE_FILE); PreparedStatement prepStmt = conn.prepareStatement("UPDATE guild_settings SET showLosung = ? WHERE guild_id = ?")){
-            if(show){
-                prepStmt.setInt(1, 1);
-            }else{
-                prepStmt.setInt(1, 0);
+        try(Connection conn = SQLiteManager.connect(VariableManager.DATABASE_FILE)) {
+            assert conn != null;
+            try(PreparedStatement prepStmt = conn.prepareStatement("UPDATE guild_settings SET showLosung = ? WHERE guild_id = ?")){
+                if(show){
+                    prepStmt.setInt(1, 1);
+                }else{
+                    prepStmt.setInt(1, 0);
+                }
+                prepStmt.setString(2, String.valueOf(guildId));
+                prepStmt.execute();
             }
-            prepStmt.setString(2, String.valueOf(guildId));
-            prepStmt.execute();
-        }catch(SQLException e){
+        } catch(SQLException e){
             java.util.logging.Logger.getLogger(Util.class.getName()).log(Level.SEVERE, "", e);
             System.out.println("Closing Database... fail");
             return false;
@@ -236,10 +259,17 @@ public class Util {
             File file = new File("secret.token");
             BufferedReader reader = new BufferedReader(new FileReader(file));
             token = reader.readLine();
+            reader.close();
         } catch (IOException ex) {
             Logger.getLogger(Util.class.getName()).log(Level.SEVERE, null, ex);
         }
         return token;
+    }
+
+    public static String replaceSpecialChars(String string){
+        return string.replaceAll("ö", "\u00F6").replaceAll("ä", "\u00E4")
+                .replaceAll("ü", "\u00FC").replaceAll("Ä", "\u00C4")
+                .replaceAll("Ö", "\u00D6").replaceAll("Ü", "\u00DC");
     }
 
 }
