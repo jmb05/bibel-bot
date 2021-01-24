@@ -69,7 +69,7 @@ public class SendTemplates {
     public static void sendHilfeAbout(TextChannel channel){
         embedBuilder.setTitle("Bibel Bot - Hilfe - " + '\u00FC' + "ber");
         embedBuilder.setDescription("Das sind meine specs!");
-        embedBuilder.addField("", "**Bibel Bot**\nVersion: 2.0.0\nEntwickler: @jmb05", false);
+        embedBuilder.addField("", "**Bibel Bot**\nVersion: 2.0.1\nEntwickler: @jmb05", false);
         embedBuilder.setColor(Color.green);
 
         channel.sendTyping().queue();
