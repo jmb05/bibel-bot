@@ -3,11 +3,26 @@ plugins {
 }
 
 group 'net.jmb19905'
-version '2.0.0'
+version '2.0.1'
 
 repositories {
     mavenCentral()
     jcenter()
+}
+
+jar{
+    archiveName "BibelBot-${project.version}.jar"
+    baseName "BibelBot-${project.version}"
+    manifest {
+        attributes(
+                'Main-Class': 'net.jmb19905.bibel.bot.Main'
+        )
+    }
+    from {
+        compileJava.classpath.collect {
+            it.isDirectory() ? it : zipTree(it)
+        }
+    }
 }
 
 dependencies {

@@ -29,10 +29,16 @@ public class HelpCommand {
     
     public static void helpMessageReceived(GuildMessageReceivedEvent evt, String[] args){
         try{
-            if(args[1].equals("" + '\u00FC' + "ber")){
-                SendTemplates.sendHilfeAbout(evt.getChannel());
-            }else if(args[1].equals("kommandos")){
-                SendTemplates.sendHilfeKommandos(evt.getChannel());
+            switch (args[1]) {
+                case "" + '\u00FC' + "ber":
+                    SendTemplates.sendHilfeAbout(evt.getChannel());
+                    break;
+                case "kommandos":
+                    SendTemplates.sendHilfeKommandos(evt.getChannel());
+                    break;
+                case "abkürzungen":
+                    SendTemplates.sendHilfeAbbr(evt.getChannel());
+                    break;
             }
         }catch(ArrayIndexOutOfBoundsException arrayIndexOutOfBoundsException){
             EmbedBuilder losung = new EmbedBuilder();
